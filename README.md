@@ -23,8 +23,8 @@
 
 Ensure you have the following installed:
 
-- **Node.js** (latest LTS version recommended)
-- **MongoDB** (if using a database)
+- **Node.js**
+- **MongoDB**
 
 ### Installation
 
