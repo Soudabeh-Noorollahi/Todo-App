@@ -1,42 +1,24 @@
-import connectDB from "../../../utils/connectDB";
-import User from "../../../models/User";
-import { hashPassword } from "../../../utils/auth";
+import { Schema, model, models } from "mongoose";
 
-async function handler(req, res) {
-  if (req.method !== "POST") return;
+const userSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  name: String,
+  lastName: String,
+  todos: [{ title: String, status: String }],
+  createdAt: {
+    type: Date,
+    default: () => Date.now(),
+    immutable: true,
+  },
+});
 
-  try {
-    await connectDB();
-  } catch (err) {
-    console.log(err);
-    return res
-      .status(500)
-      .json({ status: "failed", message: "Error in connecting to DB" });
-  }
+const User = models.User || model("User", userSchema);
 
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(422).json({
-      status: "failed",
-      message: "Invalid data",
-    });
-  }
-
-  const existingUser = await User.findOne({ email: email });
-
-  if (existingUser) {
-    return res
-      .status(422)
-      .json({ status: "failed", message: "User exists already!" });
-  }
-
-  const hashedPassword = await hashPassword(password);
-
-  const newUser = await User.create({ email: email, password: hashedPassword });
-  console.log(newUser);
-
-  res.status(201).json({ status: "success", message: "Created user!" });
-}
-
-export default handler;
+export default User;
