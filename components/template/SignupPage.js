@@ -1,4 +1,4 @@
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -8,6 +8,12 @@ function SignupPage() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") router.replace("/");
+  }, [status]);
 
   const signUpHandler = async () => {
     const res = await fetch("/api/auth/signup", {
