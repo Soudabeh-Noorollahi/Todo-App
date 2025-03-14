@@ -1,9 +1,20 @@
-import React from 'react'
-
-function ProfileData() {
+function ProfileData({ data }) {
   return (
-    <div>ProfileData</div>
-  )
+    <div className="profile-data">
+      <div>
+        <span>Name: </span>
+        <p>{data.name}</p>
+      </div>
+      <div>
+        <span>Last Name: </span>
+        <p>{data.lastName}</p>
+      </div>
+      <div>
+        <span>Email: </span>
+        <p>{data.email}</p>
+      </div>
+    </div>
+  );
 }
 
-export default ProfileData
+export default ProfileData;

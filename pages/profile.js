@@ -1,7 +1,7 @@
-import React from "react";
+import ProfilePage from "../components/template/ProfilePage";
 
-function profile() {
-  return <div>profile</div>;
+function Profile() {
+  return <ProfilePage />;
 }
 
-export default profile;
+export default Profile;
